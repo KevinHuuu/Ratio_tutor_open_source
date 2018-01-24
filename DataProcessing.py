@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-This script is used for preprocess data, including loading, trimming, etc.
+data precessing process in this script
 """
 
 print('Using this file to preprocess data')
@@ -27,7 +27,7 @@ def sampling(datasets,sample_rate):
     for dataset in datasets:
         index = dataset.index
         new_index = np.arange(min(index),max(index),sample_rate)
-        new_datasets.append(dataset.iloc[new_index,:].copy())
+        new_datasets.append(dataset.iloc[new_index-new_index[0],:].copy())
     print('Using new datasets with sample rate 1/',sample_rate)
     return new_datasets
 
@@ -71,49 +71,49 @@ def target_labelset(datasets, target = True):
     
     return datasets
 
-# def negative(datasets, remove=False):
-#     print('Test remove many labels!!!')
-#     # Replace or remove label rows containing 'NT', '0', 'B', -B
-#     if not remove:
-#         print ("Replacing invalid labels with 'negative'...")
-#     else:
-#         print ("Removing invalid labels...")
-#     data = copy.deepcopy(datasets)
-#     for i in range(len(datasets)):
+def negative(datasets, remove=False):
+    print('Test remove many labels!!!')
+    # Replace or remove label rows containing 'NT', '0', 'B', -B
+    if not remove:
+        print ("Replacing invalid labels with 'negative'...")
+    else:
+        print ("Removing invalid labels...")
+    data = copy.deepcopy(datasets)
+    for i in range(len(datasets)):
 
-#         #        df.loc[df['sport'].str.contains('ball', case=False), 'sport'] = 'ball sport'
-#         if not remove:
+        #        df.loc[df['sport'].str.contains('ball', case=False), 'sport'] = 'ball sport'
+        if not remove:
 
-#             # data[i].loc[(data[i]['label'].str.contains('IT', case=False)==False) & \
-#             # (data[i]['label'].str.contains('RT', case=False)==False)\
-#             # , 'label'] = 'negative'
+            # data[i].loc[(data[i]['label'].str.contains('IT', case=False)==False) & \
+            # (data[i]['label'].str.contains('RT', case=False)==False)\
+            # , 'label'] = 'negative'
 
 
-#             data[i].loc[data[i]['label'].str.contains('NT', case=False), 'label'] = 'negative'
-#             data[i].loc[data[i]['label'].str.contains('0', case=False), 'label'] = 'negative'
-#             data[i].loc[data[i]['label'].str.strip().str.strip("'") == 'B', 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.contains('NT', case=False), 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.contains('0', case=False), 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.strip().str.strip("'") == 'B', 'label'] = 'negative'
 
-#             data[i].loc[data[i]['label'].str.contains('-B', case=False), 'label'] = 'negative'
-#             data[i].loc[data[i]['label'].str.contains('IT', case=False), 'label'] = 'negative'
-#             data[i].loc[data[i]['label'].str.contains('RT', case=False), 'label'] = 'negative'
-#             data[i].loc[data[i]['label'].str.contains('DBH', case=False), 'label'] = 'negative'
-#             data[i].loc[data[i]['label'].str.contains('T', case=False), 'label'] = 'negative'
-#             data[i].loc[data[i]['label'].str.contains('D', case=False), 'label'] = 'negative'
-#             data[i].loc[data[i]['label'].str.contains('NV', case=False), 'label'] = 'negative'
-#         else:
-#             data[i] = data[i][data[i].label.str.contains('NT') == False]
-#             data[i] = data[i][data[i].label.str.contains('0') == False]
-#             data[i] = data[i][data[i].label.str.strip().str.strip("'") != 'B']
-#             data[i] = data[i][data[i].label.str.contains('-B') == False]
-#             data[i] = data[i][data[i].label.str.contains('IT') == False]
-#             data[i] = data[i][data[i].label.str.contains('RT') == False]
-#             data[i] = data[i][data[i].label.str.contains('DBH') == False]
-#             data[i] = data[i][data[i].label.str.contains('T') == False]
-#             # data[i] = data[i][data[i].label.str.contains('D') == False]
-#             data[i] = data[i][data[i].label.str.contains('NV') == False]
-#     data = [item for item in data if not item.empty]
-#     print ("Finished.")
-#     return data
+            data[i].loc[data[i]['label'].str.contains('-B', case=False), 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.contains('IT', case=False), 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.contains('RT', case=False), 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.contains('DBH', case=False), 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.contains('T', case=False), 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.contains('D', case=False), 'label'] = 'negative'
+            data[i].loc[data[i]['label'].str.contains('NV', case=False), 'label'] = 'negative'
+        else:
+            data[i] = data[i][data[i].label.str.contains('NT') == False]
+            data[i] = data[i][data[i].label.str.contains('0') == False]
+            data[i] = data[i][data[i].label.str.strip().str.strip("'") != 'B']
+            data[i] = data[i][data[i].label.str.contains('-B') == False]
+            data[i] = data[i][data[i].label.str.contains('IT') == False]
+            data[i] = data[i][data[i].label.str.contains('RT') == False]
+            data[i] = data[i][data[i].label.str.contains('DBH') == False]
+            data[i] = data[i][data[i].label.str.contains('T') == False]
+            # data[i] = data[i][data[i].label.str.contains('D') == False]
+            data[i] = data[i][data[i].label.str.contains('NV') == False]
+    data = [item for item in data if not item.empty]
+    print ("Finished.")
+    return data
 
 
 def NA_to_0(datasets):
