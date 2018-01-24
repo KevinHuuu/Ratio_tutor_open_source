@@ -1,6 +1,9 @@
+'''
+create label dictionary
+'''
 from DataProcessing import *
 import pandas as pd
-datasets = load_data('/research/kevin/ratio_tutor/datasets/')
+datasets = load_data('./datasets/')
 label_dict = {}
 count = 0
 maj_datasets = majority_label(datasets)
