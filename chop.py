@@ -1,6 +1,6 @@
 '''
 This script chops sequence per prompt or per label.
-
+'''
 from DataProcessing import *
 import numpy as np
 import pandas as pd
