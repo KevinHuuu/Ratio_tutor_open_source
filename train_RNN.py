@@ -251,7 +251,7 @@ class train_RNN():
         np.save('true_per_chop_student.npy', val_label)
 
 if __name__ == "__main__":
-    datasets = load_data('/research/datasets/telemetry_touch_ratio/labeled/')
+    datasets = load_data('./datasets/')
     datasets = rm_negative(datasets)
     datasets = majority_label(datasets)
 
